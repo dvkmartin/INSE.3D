@@ -1,4 +1,8 @@
 import java.awt.EventQueue;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,6 +11,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JPasswordField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AccountCreate {
 
@@ -48,7 +56,7 @@ public class AccountCreate {
 		frmFoodwise.setBounds(100, 100, 400, 300);
 		frmFoodwise.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmFoodwise.getContentPane().setLayout(null);
-		
+		frmFoodwise.setResizable(false);
 		
 		JLabel lblCreateAnAccount = DefaultComponentFactory.getInstance().createLabel("Create an Account");
 		lblCreateAnAccount.setBounds(180, 25, 116, 14);
@@ -70,10 +78,10 @@ public class AccountCreate {
 		btnCreateAccount.setBounds(165, 174, 131, 23);
 		frmFoodwise.getContentPane().add(btnCreateAccount);
 		
-		JTextArea txtrValidationCheckHereemail = new JTextArea();
-		txtrValidationCheckHereemail.setText("validation check here/email sent to address");
-		txtrValidationCheckHereemail.setBounds(10, 228, 364, 22);
-		frmFoodwise.getContentPane().add(txtrValidationCheckHereemail);
+		JTextArea txtValidation = new JTextArea();
+		txtValidation.setText("password validation check here");
+		txtValidation.setBounds(10, 238, 364, 22);
+		frmFoodwise.getContentPane().add(txtValidation);
 		
 		JLabel lblUsername = DefaultComponentFactory.getInstance().createLabel("Email Address");
 		lblUsername.setBounds(57, 53, 88, 14);
@@ -99,12 +107,135 @@ public class AccountCreate {
 		passwordField_1.setBounds(148, 143, 175, 20);
 		frmFoodwise.getContentPane().add(passwordField_1);
 		
-		String password = passwordField.getPassword().toString();
-		String password2 = passwordField_1.getPassword().toString();
+		JTextArea txtrEmailValidationCheck = new JTextArea();
+		txtrEmailValidationCheck.setText("email validation check here");
+		txtrEmailValidationCheck.setBounds(10, 208, 364, 22);
+		frmFoodwise.getContentPane().add(txtrEmailValidationCheck);
 		
+		
+		// checks making sure all both repeating fields have the same values. Method Resolves if true. 
+		
+		btnCreateAccount.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				{
+				if(passwordField.getText().equals("")) {
+					txtValidation.setText("Please enter a valid Password");
+						}
+				if(txtEmailAddress.getText().equals("")) {
+					txtrEmailValidationCheck.setText("Please enter a valid email address");
+					}
+				else if (passwordField.getText().equals(passwordField_1.getText()) && (txtEmailAddress.getText().equals(txtReenterEmailAddress.getText()))) {
+					txtValidation.setText("test success");
+					System.out.println("test success");
+				}	else {
+						System.out.println("test fail");
+				}
+			}}
+		});
+		
+		//password comparison checker between pass1 & pass2 
+		
+		passwordField.getDocument().addDocumentListener(new DocumentListener() {
+				  public void changedUpdate(DocumentEvent e) {
+				    Updated();
+				  }
+				  public void removeUpdate(DocumentEvent e) {
+					Updated();
+				  }
+				  public void insertUpdate(DocumentEvent e) {
+					Updated();
+				  }
+		
+		public void Updated() {
+		     if (passwordField.getText().equals(passwordField_1.getText())){
+		    	 txtValidation.setText("Password comparison successful");
+		     } 
+		     else {
+		    	 txtValidation.setText("Password comparison failed");
+		     }
+		    }});
+		
+		//password comparison checker between pass2 & pass1
+		
+		passwordField_1.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			  public void changedUpdate(DocumentEvent e) {
+				Updated();
+			  }
+			@Override
+			  public void removeUpdate(DocumentEvent e) {
+				Updated();
+			  }
+			@Override
+			  public void insertUpdate(DocumentEvent e) {
+				  Updated();
+			  }
+	
+			
+		public void Updated() {
+			if (passwordField_1.getText().equals(passwordField.getText())){
+	    	 txtValidation.setText("Password comparison successful");
+	     } 
+	     else {
+	    	 txtValidation.setText("Password comparison failed");
+	     }
+	    }});
+	
+		//email comparison checker between email1 & email2.
+		//this is not Regex checking at all, only comparing the first email field with the second checking if they compare. 
+		//Method resolves successful if compared successful 
+		
+		txtEmailAddress.getDocument().addDocumentListener(new DocumentListener() {
 
-				
+			  public void changedUpdate(DocumentEvent e) {
+			    Updated();
+			  }
 
+			  public void removeUpdate(DocumentEvent e) {
+				Updated();
+			  }
+
+			  public void insertUpdate(DocumentEvent e) {
+				Updated();
+			  }
+	
+		public void Updated() {
+	     if (txtEmailAddress.getText().equals(txtReenterEmailAddress.getText())){
+	    	 txtrEmailValidationCheck.setText("Email comparison successful");
+	     } 
+	     else {
+	    	 txtrEmailValidationCheck.setText("Email comparison failed");
+	     }
+	    }});
+		
+		//email comparison checker between email2 & email1.
+		//this is not Regex checking at all, only comparing the second email field with the first checking if they compare. 
+		//Method resolves successful if compared successful 
+		
+		txtReenterEmailAddress.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			  public void changedUpdate(DocumentEvent e) {
+			    Updated();
+			  }
+			@Override
+			  public void removeUpdate(DocumentEvent e) {
+				Updated();
+			  }
+			@Override
+			  public void insertUpdate(DocumentEvent e) {
+				Updated();
+			  }
+	
+		public void Updated() {
+	     if (txtReenterEmailAddress.getText().equals(txtEmailAddress.getText())){
+	    	 txtrEmailValidationCheck.setText("Email comparison successful");
+	     } 
+	     else {
+	    	 txtrEmailValidationCheck.setText("Email comparison failed");
+	     }
+	    }});
 		
 	}
 }
+
