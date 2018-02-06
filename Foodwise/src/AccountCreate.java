@@ -2,7 +2,7 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Arrays;
+import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +15,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 
 public class AccountCreate {
 
@@ -79,7 +82,6 @@ public class AccountCreate {
 		frmFoodwise.getContentPane().add(btnCreateAccount);
 		
 		JTextArea txtValidation = new JTextArea();
-		txtValidation.setText("password validation check here");
 		txtValidation.setBounds(10, 238, 364, 22);
 		frmFoodwise.getContentPane().add(txtValidation);
 		
@@ -108,7 +110,7 @@ public class AccountCreate {
 		frmFoodwise.getContentPane().add(passwordField_1);
 		
 		JTextArea txtrEmailValidationCheck = new JTextArea();
-		txtrEmailValidationCheck.setText("email validation check here");
+		txtrEmailValidationCheck.setText("Please enter your email address!");
 		txtrEmailValidationCheck.setBounds(10, 208, 364, 22);
 		frmFoodwise.getContentPane().add(txtrEmailValidationCheck);
 		
@@ -120,14 +122,15 @@ public class AccountCreate {
 			public void actionPerformed(ActionEvent e) {
 				{
 				if(passwordField.getText().equals("")) {
-					txtValidation.setText("Please enter a valid Password");
+					txtValidation.setText("Please enter your password!");
 						}
 				if(txtEmailAddress.getText().equals("")) {
-					txtrEmailValidationCheck.setText("Please enter a valid email address");
+					txtrEmailValidationCheck.setText("Please enter your email address!");
 					}
 				else if (passwordField.getText().equals(passwordField_1.getText()) && (txtEmailAddress.getText().equals(txtReenterEmailAddress.getText()))) {
 					txtValidation.setText("test success");
 					System.out.println("test success");
+					// this is where  clicking create account the info provided by the user will be appended into the database 
 				}	else {
 						System.out.println("test fail");
 				}
@@ -150,9 +153,10 @@ public class AccountCreate {
 		public void Updated() {
 		     if (passwordField.getText().equals(passwordField_1.getText())){
 		    	 txtValidation.setText("Password comparison successful");
+		    	 System.out.println("comparison successful ");
 		     } 
 		     else {
-		    	 txtValidation.setText("Password comparison failed");
+		    	 txtValidation.setText("Make sure to re-enter your password!");
 		     }
 		    }});
 		
@@ -174,17 +178,15 @@ public class AccountCreate {
 	
 			
 		public void Updated() {
-			if (passwordField_1.getText().equals(passwordField.getText())){
-	    	 txtValidation.setText("Password comparison successful");
-	     } 
-	     else {
-	    	 txtValidation.setText("Password comparison failed");
-	     }
-	    }});
+		     if (passwordField_1.getText().equals(passwordField.getText())){
+		    	 txtValidation.setText("Looks good!");
+		     } 
+		     else {
+		    	 txtValidation.setText("Passwords do not match up!");
+		     }
+		    }});
 	
 		//email comparison checker between email1 & email2.
-		//this is not Regex checking at all, only comparing the first email field with the second checking if they compare. 
-		//Method resolves successful if compared successful 
 		
 		txtEmailAddress.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -201,18 +203,34 @@ public class AccountCreate {
 			  }
 	
 		public void Updated() {
-	     if (txtEmailAddress.getText().equals(txtReenterEmailAddress.getText())){
-	    	 txtrEmailValidationCheck.setText("Email comparison successful");
-	     } 
-	     else {
-	    	 txtrEmailValidationCheck.setText("Email comparison failed");
-	     }
-	    }});
+			String email = txtEmailAddress.getText();
+			try {
+			if (txtEmailAddress.getText().equals(txtReenterEmailAddress.getText())){ try {
+				InternetAddress emailAddress = new InternetAddress(email);
+	    		emailAddress.validate();
+	    		System.out.println("successful comparison, successful validation "); 
+	    		txtrEmailValidationCheck.setText("Looks good!");
+	    		} catch (Exception e) {
+	    			System.out.println("successful comparison, unsuccessful validation");
+	    			txtrEmailValidationCheck.setText("make sure to set a valid email address");
+	    				if (txtEmailAddress.getText().equals("") && txtEmailAddress.getText().equals("")) {
+	    					txtrEmailValidationCheck.setText("Please enter an email address!");
+	    				}
+	    			}
+	    		}
+			else if(!txtReenterEmailAddress.getText().equals(txtEmailAddress.getText())) {
+				txtrEmailValidationCheck.setText("Email addresses do not match!");
+			} else {
+				txtrEmailValidationCheck.setText("Make sure to re-enter your email address");
+			}
+			}
+		 catch (Exception e) { //never resolves
+			System.out.println("test failed try if statement");
+		}
+		}});
 		
 		//email comparison checker between email2 & email1.
-		//this is not Regex checking at all, only comparing the second email field with the first checking if they compare. 
-		//Method resolves successful if compared successful 
-		
+
 		txtReenterEmailAddress.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			  public void changedUpdate(DocumentEvent e) {
@@ -226,16 +244,37 @@ public class AccountCreate {
 			  public void insertUpdate(DocumentEvent e) {
 				Updated();
 			  }
-	
-		public void Updated() {
-	     if (txtReenterEmailAddress.getText().equals(txtEmailAddress.getText())){
-	    	 txtrEmailValidationCheck.setText("Email comparison successful");
-	     } 
-	     else {
-	    	 txtrEmailValidationCheck.setText("Email comparison failed");
-	     }
-	    }});
 		
+		public void Updated() {
+		String email = txtEmailAddress.getText();
+		try {
+			if (txtReenterEmailAddress.getText().equals(txtEmailAddress.getText())){ try {
+				InternetAddress emailAddress = new InternetAddress(email);
+	    		emailAddress.validate();
+	    		System.out.println("successful comparison, successful validation ");
+	    		txtrEmailValidationCheck.setText("Looks good!");
+	    		} catch (Exception e) {
+	    			System.out.println("successful comparison, unsuccessful validation");
+	    			txtrEmailValidationCheck.setText("make sure to set a valid email address");
+	    			}
+	    		}
+			else {
+				txtrEmailValidationCheck.setText("Email addresses do not match!");
+			}
+			}
+		 catch (Exception e) { //never resolves
+			System.out.println("test failed try if statement");
+		}
+		}
+		});
 	}
 }
+
+	    
+		
+
+
+	
+
+
 
