@@ -118,7 +118,6 @@ public class AccountCreate {
 		// checks making sure all both repeating fields have the same values. Method Resolves if true. 
 		
 		btnCreateAccount.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				{
 				if(passwordField.getText().equals("")) {
@@ -163,15 +162,12 @@ public class AccountCreate {
 		//password comparison checker between pass2 & pass1
 		
 		passwordField_1.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
 			  public void changedUpdate(DocumentEvent e) {
 				Updated();
 			  }
-			@Override
 			  public void removeUpdate(DocumentEvent e) {
 				Updated();
 			  }
-			@Override
 			  public void insertUpdate(DocumentEvent e) {
 				  Updated();
 			  }
@@ -189,22 +185,17 @@ public class AccountCreate {
 		//email comparison checker between email1 & email2.
 		
 		txtEmailAddress.getDocument().addDocumentListener(new DocumentListener() {
-
 			  public void changedUpdate(DocumentEvent e) {
 			    Updated();
 			  }
-
 			  public void removeUpdate(DocumentEvent e) {
 				Updated();
 			  }
-
 			  public void insertUpdate(DocumentEvent e) {
 				Updated();
 			  }
-	
 		public void Updated() {
-			String email = txtEmailAddress.getText();
-			try {
+		String email = txtEmailAddress.getText();
 			if (txtEmailAddress.getText().equals(txtReenterEmailAddress.getText())){ try {
 				InternetAddress emailAddress = new InternetAddress(email);
 	    		emailAddress.validate();
@@ -219,56 +210,51 @@ public class AccountCreate {
 	    			}
 	    		}
 			else if(!txtReenterEmailAddress.getText().equals(txtEmailAddress.getText())) {
-				txtrEmailValidationCheck.setText("Email addresses do not match!");
+				txtrEmailValidationCheck.setText("Make sure to re-enter your email address!");
 			} else {
-				txtrEmailValidationCheck.setText("Make sure to re-enter your email address");
+				txtrEmailValidationCheck.setText("Email addresses do not match");
 			}
 			}
-		 catch (Exception e) { //never resolves
-			System.out.println("test failed try if statement");
-		}
-		}});
+
+		});
 		
 		//email comparison checker between email2 & email1.
 
 		txtReenterEmailAddress.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			  public void changedUpdate(DocumentEvent e) {
-			    Updated();
-			  }
-			@Override
-			  public void removeUpdate(DocumentEvent e) {
-				Updated();
-			  }
-			@Override
-			  public void insertUpdate(DocumentEvent e) {
-				Updated();
-			  }
-		
+		public void changedUpdate(DocumentEvent e) {
+			Updated();
+			}
+		public void removeUpdate(DocumentEvent e) {
+			Updated();
+			}
+		public void insertUpdate(DocumentEvent e) {
+			Updated();
+			}
 		public void Updated() {
 		String email = txtEmailAddress.getText();
-		try {
-			if (txtReenterEmailAddress.getText().equals(txtEmailAddress.getText())){ try {
-				InternetAddress emailAddress = new InternetAddress(email);
-	    		emailAddress.validate();
-	    		System.out.println("successful comparison, successful validation ");
-	    		txtrEmailValidationCheck.setText("Looks good!");
-	    		} catch (Exception e) {
-	    			System.out.println("successful comparison, unsuccessful validation");
-	    			txtrEmailValidationCheck.setText("make sure to set a valid email address");
+			if (txtReenterEmailAddress.getText().equals(txtEmailAddress.getText())){ 
+				try {
+					InternetAddress emailAddress = new InternetAddress(email);
+					emailAddress.validate();
+					System.out.println("successful comparison, successful validation ");
+					txtrEmailValidationCheck.setText("Looks good!");
+	    			} catch (Exception e) {
+	    				System.out.println("successful comparison, unsuccessful validation");
+	    				txtrEmailValidationCheck.setText("Make sure to set a valid email address");
 	    			}
 	    		}
 			else {
 				txtrEmailValidationCheck.setText("Email addresses do not match!");
 			}
 			}
-		 catch (Exception e) { //never resolves
-			System.out.println("test failed try if statement");
-		}
-		}
+		
 		});
+		
+		
+		
 	}
 }
+
 
 	    
 		
