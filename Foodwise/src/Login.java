@@ -4,24 +4,12 @@
  * and open the template in the editor.
  */
 
-import java.awt.EventQueue;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.awt.Window;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
-import javax.swing.JTextPane;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.Wrapper;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 
 /**
@@ -42,6 +30,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         SignIn();
+        setResizable(false);
     }
 
     /**
@@ -153,6 +142,8 @@ public class Login extends javax.swing.JFrame {
                         System.out.println("Login details comparison failed");
                     } else {
                         System.out.println("Login details comparison successfull"); // user can log into the system, move to main part of app 
+                        dispose();
+                        new HomePage().setVisible(true);
                     }
                     System.out.println(finder);
                     ((java.sql.Connection) con).close();

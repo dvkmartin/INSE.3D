@@ -4,30 +4,15 @@
  * and open the template in the editor.
  */
 
-import java.awt.EventQueue;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
-import java.sql.DriverManager;
 import java.util.*;
 import java.sql.Wrapper;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JTextArea;
-import javax.swing.JPasswordField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 /**
  *
@@ -59,6 +44,7 @@ public class AccountCreate extends javax.swing.JFrame {
         PassCheck();
         EmailCheck();
         SignUp();
+        setResizable(false);
     }
 
     /**
@@ -363,7 +349,7 @@ public class AccountCreate extends javax.swing.JFrame {
                                 email.setRecipient(Message.RecipientType.TO, new InternetAddress(reciever));
                                 email.setSentDate(new Date());
                                 email.setSubject("Foodwise Account Creation");
-                                email.setText("Your Account has been successfully created!, your password is:" + passwordField.getText());
+                                email.setText("Your Account has been successfully created!, your password is: " + passwordField.getText());
                                 Transport.send(email);
                                 System.out.println("email has been sent");
 
