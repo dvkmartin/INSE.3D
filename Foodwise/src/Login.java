@@ -23,6 +23,7 @@ public class Login extends javax.swing.JFrame {
     static final String DBUsername = "inse";
     static final String DBPassword = "inse3d";
     PreparedStatement test = null;
+    
 
     /**
      * Creates new form Login
@@ -31,8 +32,10 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         SignIn();
         setResizable(false);
+        
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,6 +132,7 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
         new AccountCreate().setVisible(true);
     }//GEN-LAST:event_btnSignUpActionPerformed
+
 
     public void SignIn() {
         btnSignIn.addActionListener(new ActionListener() {
