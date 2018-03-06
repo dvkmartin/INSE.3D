@@ -52,7 +52,7 @@ public class AccountCreate extends JFrame{
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
     }
-    static final String JDBC_Driver = "com.mysql.jdbc.Driver";  
+  	static final String JDBC_Driver = "com.mysql.jdbc.Driver";  
     static final String Database_Path = "jdbc:mysql://localhost:3306/new?verifyServerCertificate=false&useSSL=true";
     static final String DBUsername = "root";
     static final String DBPassword = "root";

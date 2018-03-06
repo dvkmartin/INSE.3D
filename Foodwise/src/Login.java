@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Wrapper;
 import java.awt.event.ActionEvent;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JTextField;
 
 
@@ -20,9 +22,9 @@ import javax.swing.JTextField;
 public class Login extends JFrame{
 
 	static final String JDBC_Driver = "com.mysql.jdbc.Driver";  
-	static final String Database_Path = "jdbc:mysql://localhost:3306/new?verifyServerCertificate=false&useSSL=true";
-	static final String DBUsername = "root";
-	static final String DBPassword = "root";
+    static final String Database_Path = "jdbc:mysql://localhost:3306/new?verifyServerCertificate=false&useSSL=true";
+    static final String DBUsername = "root";
+    static final String DBPassword = "root";
 	Wrapper connect = null;
 	
 	private JFrame frmFoodwise;
@@ -92,10 +94,28 @@ public class Login extends JFrame{
 		JButton btnSignIn = new JButton("Sign In");
 		btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { //compare db info
-				// String select query where = get username = database username, same for password, if compares, new jframe.
-                // connect = DriverManager.getConnection(Database_Path, DBUsername, DBPassword);
-                // ((Connection)connect).createStatement().execute(createAccountQuery);
-                // ((java.sql.Connection)connect).close();
+                            try{
+		String selectquery  = "select user_id from login where username = '" +txtUsername.getText()+"' and password='"+txtPasword.getText()+"'";
+                connect = DriverManager.getConnection(Database_Path, DBUsername, DBPassword);
+                 Statement stmt=((Connection)connect).createStatement();
+                 stmt.execute(selectquery);
+                 ResultSet rs=stmt.getResultSet();
+                 int userid=-1;
+                 if(rs.next())
+                     userid=rs.getInt(1);
+                 if(userid>-1)
+                 {
+                     frmFoodwise.setVisible(false);
+                     frmFoodwise.dispose();
+                     //pass the userid to the new Home form
+                     (new Home(userid)).setVisible(true);
+                 }
+                 System.out.println("User id:"+userid);
+                 ((java.sql.Connection)connect).close();
+                            }catch(Exception ex)
+                            {
+                                System.out.println(ex.getStackTrace());
+                            }
 			}
 		});
 		
