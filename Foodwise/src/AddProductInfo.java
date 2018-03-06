@@ -1,9 +1,13 @@
 
+import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
 import java.lang.*;
 import java.lang.StringBuilder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Wrapper;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,24 +23,31 @@ public class AddProductInfo extends javax.swing.JDialog {
     /**
      * Creates new form AddProductInfo
      */
-    public AddProductInfo(java.awt.Frame parent, boolean modal) {
+    public AddProductInfo(java.awt.Frame parent, boolean modal, int userid) {
         super(parent, modal);
+        this.userid=userid;
         initComponents();
         windowClosing();
         getDate();
     }
 
+    static final String JDBC_Driver = "com.mysql.jdbc.Driver";
+    static final String Database_Path = "jdbc:mysql://77.95.179.45:3306/new?verifyServerCertificate=false&useSSL=true";
+    static final String DBUsername = "inse";
+    static final String DBPassword = "inse3d";
+    Wrapper connect = null;
+    private int userid=-1;
+    
     private void getDate() {
         labelGetDate.setText("Date Expiration: " + jCalendar.getDate().toString());
         jCalendar.addPropertyChangeListener(new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent evt) {
                 labelGetDate.setText("Date Expiration: " + jCalendar.getDate().toString());
-                
+
             }
         });
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,8 +189,18 @@ public class AddProductInfo extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
-        HomePage.showProductDetails.append(this.productName.getText()+"   "+labelGetDate.getText()+"\n");
+        String hello = (this.productName.getText() + "   " + labelGetDate.getText() + "\n");
+        HomePage.showProductDetails.append(hello);
         //insert query to add items into the database 
+        {
+            try {
+                String insertProductQuery = "INSERT INTO user_details (product_detail, user_id) VALUES ('" + hello + "'," + userid + ")";
+                connect = DriverManager.getConnection(Database_Path, DBUsername, DBPassword);
+                ((Connection) connect).createStatement().execute(insertProductQuery);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        }
     }//GEN-LAST:event_addProductBtnActionPerformed
 
     public String getProductName() {

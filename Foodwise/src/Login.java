@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.Wrapper;
 
 /**
  *
@@ -23,7 +25,7 @@ public class Login extends javax.swing.JFrame {
     static final String DBUsername = "inse";
     static final String DBPassword = "inse3d";
     PreparedStatement test = null;
-    
+    Wrapper connect = null;
 
     /**
      * Creates new form Login
@@ -32,10 +34,9 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         SignIn();
         setResizable(false);
-        
+
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,29 +134,31 @@ public class Login extends javax.swing.JFrame {
         new AccountCreate().setVisible(true);
     }//GEN-LAST:event_btnSignUpActionPerformed
 
-
     public void SignIn() {
         btnSignIn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String finder = "SELECT * FROM login WHERE username = '" + txtUsername.getText() + "' AND password = '" + txtPassword.getText() + "'";
-                    Connection con = DriverManager.getConnection(Database_Path, DBUsername, DBPassword);
-                    test = con.prepareStatement("SELECT * FROM login where username=? and password=?");
-                    ResultSet results = test.executeQuery(finder);
-                    if (!results.next()) {
-                        System.out.println("Login details comparison failed");
-                    } else {
-                        System.out.println("Login details comparison successfull"); // user can log into the system, move to main part of app 
-                        dispose();
-                        new HomePage().setVisible(true);
+                    String selectquery = "select user_id from login where username = '" + txtUsername.getText() + "' and password='" + txtPassword.getText() + "'";
+                    connect = DriverManager.getConnection(Database_Path, DBUsername, DBPassword);
+                    Statement stmt = ((Connection) connect).createStatement();
+                    stmt.execute(selectquery);
+                    ResultSet rs = stmt.getResultSet();
+                    int userid = -1;
+                    if (rs.next()) {
+                        userid = rs.getInt(1);
                     }
-                    System.out.println(finder);
-                    ((java.sql.Connection) con).close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    if (userid > -1) {
+                        //pass the userid to the new Home form
+                        (new HomePage(userid)).setVisible(true);
+                    }
+                    System.out.println("User id:" + userid);
+                    ((java.sql.Connection) connect).close();
+                } catch (Exception ex) {
+                    System.out.println(ex.getStackTrace());
                 }
             }
         });
+
     }
 
     /**

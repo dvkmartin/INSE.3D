@@ -15,11 +15,12 @@ public class HomePage extends javax.swing.JFrame {
     /**
      * Creates new form HomePage
      */
-    public HomePage() {
+    public HomePage(int userid) {
+        this.userid=userid;
         initComponents();
         setResizable(false);
     }
-    
+    private int userid=-1;
     public void setType(String type) {
         this.showProductDetails.setText(type);
     }
@@ -104,7 +105,7 @@ public class HomePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AddProductInfo dialog = new AddProductInfo(new javax.swing.JFrame(), true);
+        AddProductInfo dialog = new AddProductInfo(new javax.swing.JFrame(), true, userid);
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
