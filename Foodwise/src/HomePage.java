@@ -3,28 +3,43 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import javax.swing.JFrame;
 
-        
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.Wrapper;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Brad
  */
 public class HomePage extends javax.swing.JFrame {
 
+    static final String JDBC_Driver = "com.mysql.jdbc.Driver";
+    static final String Database_Path = "jdbc:mysql://167.99.88.104:3306/new?verifyServerCertificate=false&useSSL=true";
+    static final String DBUsername = "foodwiseAdmin";
+    static final String DBPassword = "Inse3d..";
+    Wrapper connect = null;
+
     /**
      * Creates new form HomePage
      */
     public HomePage(int userid) {
-        this.userid=userid;
+        this.userid = userid;
         initComponents();
         setResizable(false);
+        hello();
     }
-    private int userid=-1;
+    private int userid = -1;
+
     public void setType(String type) {
         this.showProductDetails.setText(type);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,6 +56,7 @@ public class HomePage extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         showProductDetails = new javax.swing.JTextArea();
+        lastAdded = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +79,8 @@ public class HomePage extends javax.swing.JFrame {
         showProductDetails.setRows(5);
         jScrollPane2.setViewportView(showProductDetails);
 
+        lastAdded.setText("jLabel4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,6 +91,8 @@ public class HomePage extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lastAdded)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
@@ -97,7 +117,8 @@ public class HomePage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(lastAdded))
                 .addContainerGap())
         );
 
@@ -109,6 +130,26 @@ public class HomePage extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void hello() {
+        String lastInsertedProduct = "";
+        try {
+            String selectquery = "select product_detail from user_details where user_id = " + userid + " order by id desc";
+            connect = DriverManager.getConnection(Database_Path, DBUsername, DBPassword);
+            Statement stmt = ((Connection) connect).createStatement();
+            stmt.execute(selectquery);
+            ResultSet rs = stmt.getResultSet();
+
+            if (rs.next()) {
+                lastInsertedProduct = rs.getString(1);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        JLabel lblLastProduct = DefaultComponentFactory.getInstance().createLabel("Last Inserted Product: " + lastInsertedProduct);
+        lblLastProduct.setBounds(50, 120, 300, 20);
+        lastAdded.setText(lastInsertedProduct);
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -117,6 +158,7 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lastAdded;
     public static javax.swing.JTextArea showProductDetails;
     // End of variables declaration//GEN-END:variables
 }

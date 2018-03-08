@@ -30,9 +30,9 @@ public class AccountCreate extends javax.swing.JFrame {
     }
 
     static final String JDBC_Driver = "com.mysql.jdbc.Driver";
-    static final String Database_Path = "jdbc:mysql://77.95.179.45:3306/new?verifyServerCertificate=false&useSSL=true";
-    static final String DBUsername = "inse";
-    static final String DBPassword = "inse3d";
+    static final String Database_Path = "jdbc:mysql://167.99.88.104:3306/new?verifyServerCertificate=false&useSSL=true";
+    static final String DBUsername = "foodwiseAdmin";
+    static final String DBPassword = "Inse3d..";
 
     Wrapper connect = null;
 
