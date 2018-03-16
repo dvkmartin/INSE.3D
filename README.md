@@ -4,4 +4,4 @@ To run the application download and unzip the Foodwise project, then navigate to
 
 Javadoc is located in the dist folder as well: \Foodwise\dist\javadoc
 
-Notes: We have created junit test cases to test the functions in the classes that we have built. We have created a test case which sends wrong username and password as input to the login function and gets the response back as invalid user id. We have created a test case which send correct username and password to the login function and gets correct userid back in the response
+Notes: Two libraries are used for the test cases and those are Junit and Hamcrest. JUnit is the directly used library while the Hamcrest library is used internally by the Junit. Both the libraries are present in the test librarires folder and may need to be reimported in case of any errors in automatic import of project in netbeans
