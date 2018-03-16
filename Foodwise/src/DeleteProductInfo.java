@@ -14,7 +14,6 @@ import java.sql.Wrapper;
 import javax.swing.JOptionPane;
 
 /**
- *
  * @author INSE3D
  */
 public class DeleteProductInfo extends javax.swing.JFrame {
@@ -148,7 +147,7 @@ public class DeleteProductInfo extends javax.swing.JFrame {
                 if (rs.next()) {
                     String result = rs.getString("product_detail");
                     System.out.println(result);
-                    JOptionPane.showMessageDialog(null, "Item lookup successfull");
+                    JOptionPane.showMessageDialog(null, "Item lookup successful");
                 } else {
                     JOptionPane.showMessageDialog(null, "Item lookup unsuccessful, re-enter your product information");
                 }

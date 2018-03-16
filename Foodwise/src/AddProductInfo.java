@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Brad
+ * @author INSE3D
  */
 public class AddProductInfo extends javax.swing.JDialog {
 

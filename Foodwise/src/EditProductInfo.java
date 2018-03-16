@@ -228,7 +228,7 @@ public class EditProductInfo extends javax.swing.JFrame {
     }
 
     /**
-     * @param evt On click button will edit an item based on user inputted
+     * @param evt On click button will edit a product based on user inputted
      * details
      */
     private void EditProductbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProductbtnActionPerformed
@@ -277,7 +277,6 @@ public class EditProductInfo extends javax.swing.JFrame {
     /**
      * Checks the item exists in the database. Acts as a reference to editing a
      * product.
-     *
      * @param evt
      */
     private void ItemLookupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemLookupBtnActionPerformed
