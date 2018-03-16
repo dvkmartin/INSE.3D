@@ -217,7 +217,7 @@ public class AddProductInfo extends javax.swing.JDialog {
         jRadioButton5.setActionCommand("Milk ");
         jRadioButton6.setActionCommand("Juice ");
         if (productName.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Enter a product name!!");
+            JOptionPane.showMessageDialog(null, "Enter a product name!");
         } else if (buttonGroup1.getSelection() == null) {
             JOptionPane.showMessageDialog(null, "Select a product type!");
         }
