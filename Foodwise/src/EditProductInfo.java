@@ -64,7 +64,7 @@ public class EditProductInfo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("New Product Name");
+        jLabel2.setText("New Product Name: ");
 
         productName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +108,7 @@ public class EditProductInfo extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Previous Product Infomation");
+        jLabel1.setText("Previous Product Infomation: ");
 
         PreviousProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +116,7 @@ public class EditProductInfo extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Copy and paste the product detail from the homepage to change once at a time");
+        jLabel4.setText("(Copy and paste the chosen product across from homepage for removal).");
 
         ItemLookupBtn.setText("Item Lookup");
         ItemLookupBtn.addActionListener(new java.awt.event.ActionListener() {

@@ -52,6 +52,7 @@ public class DeleteProductInfo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         deleteProductName = new javax.swing.JTextField();
         searchProductDelete = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -85,7 +86,7 @@ public class DeleteProductInfo extends javax.swing.JFrame {
                 deleteProductNameActionPerformed(evt);
             }
         });
-        getContentPane().add(deleteProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 284, -1));
+        getContentPane().add(deleteProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 284, -1));
 
         searchProductDelete.setText("Search");
         searchProductDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +94,10 @@ public class DeleteProductInfo extends javax.swing.JFrame {
                 searchProductDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(searchProductDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 70, -1));
+        getContentPane().add(searchProductDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 70, -1));
+
+        jLabel2.setText("(Copy and paste the chosen product across for removal).");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 370, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -168,6 +172,7 @@ public class DeleteProductInfo extends javax.swing.JFrame {
     private javax.swing.JTextField deleteProductName;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton searchProductDelete;
     // End of variables declaration//GEN-END:variables

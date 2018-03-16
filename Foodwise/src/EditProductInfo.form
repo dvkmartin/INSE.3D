@@ -131,7 +131,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="New Product Name"/>
+        <Property name="text" type="java.lang.String" value="New Product Name: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="productName">
@@ -220,7 +220,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Previous Product Infomation"/>
+        <Property name="text" type="java.lang.String" value="Previous Product Infomation: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="PreviousProduct">
@@ -230,7 +230,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Copy and paste the product detail from the homepage to change once at a time"/>
+        <Property name="text" type="java.lang.String" value="(Copy and paste the chosen product across from homepage for removal)."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="ItemLookupBtn">
