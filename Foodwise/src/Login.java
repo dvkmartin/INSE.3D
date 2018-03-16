@@ -156,15 +156,8 @@ public class Login extends javax.swing.JFrame {
         btnSignIn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String selectquery = "select user_id from login where username = '" + txtUsername.getText() + "' and password='" + txtPassword.getText() + "'";
-                    connect = DriverManager.getConnection(Database_Path, DBUsername, DBPassword);
-                    Statement stmt = ((Connection) connect).createStatement();
-                    stmt.execute(selectquery);
-                    ResultSet rs = stmt.getResultSet();
-                    int userid = -1;
-                    if (rs.next()) {
-                        userid = rs.getInt(1);
-                    }
+                   int userid = login(txtUsername.getText(),txtPassword.getText());
+                   System.out.print(userid);
                     if (userid > -1) {
                         //pass the userid to the new Home form
                         (new HomePage(userid)).setVisible(true);
@@ -181,6 +174,29 @@ public class Login extends javax.swing.JFrame {
         });
 
     }
+    
+    
+    public int login(String username, String password){
+        try{
+        String selectquery = "select user_id from login where username = '" + username + "' and password='" + password + "'";
+                    connect = DriverManager.getConnection(Database_Path, DBUsername, DBPassword);
+                    Statement stmt = ((Connection) connect).createStatement();
+                    stmt.execute(selectquery);
+                    ResultSet rs = stmt.getResultSet();
+                    int userid = -1;
+                    if (rs.next()) {
+                        userid = rs.getInt(1);
+                    }
+                    return userid;
+        }
+        catch(Exception ex)
+        {
+            return -1;
+        }
+        
+    }
+
+
 
     /**
      * @param args the command line arguments
